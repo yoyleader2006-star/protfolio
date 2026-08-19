@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yusuf Mostafa · AI Engineer</title>
+  <!-- Google Font (Outfit - modern, round, youthful) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    /* ----- RESET & BASE ----- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: #0c0a1a;
+      /* deep dark base for a modern pop */
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* ----- YOUTHFUL BACKGROUND BLOBS (floating gradients) ----- */
+    .blob-1,
+    .blob-2 {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(110px);
+      opacity: 0.5;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .blob-1 {
+      width: 500px;
+      height: 500px;
+      background: #7c3aed;
+      top: -150px;
+      right: -100px;
+      animation: float 12s infinite alternate ease-in-out;
+    }
+    .blob-2 {
+      width: 450px;
+      height: 450px;
+      background: #ec4899;
+      bottom: -150px;
+      left: -100px;
+      animation: float 15s infinite alternate-reverse ease-in-out;
+    }
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+      100% {
+        transform: translate(40px, 30px) scale(1.2);
+      }
+    }
+
+    /* ----- MAIN CARD (Glassmorphism) ----- */
+    .portfolio {
+      max-width: 1100px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 3.5rem;
+      padding: 2.5rem 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 10;
+      transition: all 0.2s ease;
+    }
+
+    @media (min-width: 768px) {
+      .portfolio {
+        padding: 3.5rem 3.5rem;
+      }
+    }
+
+    /* ----- TYPOGRAPHY (Bold, Modern) ----- */
+    h1,
+    h2,
+    h3 {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: 3.8rem;
+      line-height: 1.05;
+      background: linear-gradient(135deg, #c084fc, #f472b6, #fb923c);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: 0 0 40px rgba(192, 132, 252, 0.2);
+      display: inline-block;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      color: #ffffff;
+      margin-bottom: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    h2 i {
+      background: linear-gradient(135deg, #a78bfa, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2rem;
+    }
+
+    .section {
+      margin-bottom: 3.8rem;
+    }
+    .section:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ----- HERO (Modern & Fun) ----- */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .hero-content .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: rgba(52, 211, 153, 0.15);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(52, 211, 153, 0.3);
+      color: #6ee7b7;
+      padding: 0.3rem 1.4rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+      letter-spacing: 0.3px;
+    }
+    .hero-content .status-badge i {
+      color: #34d399;
+      font-size: 0.7rem;
+    }
+
+    .hero-tagline {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      margin-top: 0.5rem;
+      max-width: 600px;
+    }
+    .hero-tagline span {
+      background: linear-gradient(135deg, #a78bfa, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+      max-width: 550px;
+      margin-top: 0.75rem;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    /* Avatar - bigger, glowing */
+    .avatar-box {
+      flex-shrink: 0;
+      width: 140px;
+      height: 140px;
+      background: linear-gradient(135deg, #7c3aed, #ec4899, #f97316);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+      color: white;
+      box-shadow: 0 0 60px rgba(124, 58, 237, 0.4), 0 0 120px rgba(236, 72, 153, 0.2);
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease;
+    }
+    .avatar-box:hover {
+      transform: scale(1.04) rotate(-4deg);
+    }
+
+    /* ----- SKILLS PILLS (Neon / Gradients) ----- */
+    .skill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.2rem;
+    }
+    .pill {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.5rem 1.6rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .pill i {
+      color: #a78bfa;
+      font-size: 1rem;
+    }
+    .pill:hover {
+      background: rgba(124, 58, 237, 0.2);
+      border-color: #8b5cf6;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(124, 58, 237, 0.3);
+    }
+
+    /* ----- PROJECT CARD (Glass + Neon) ----- */
+    .project-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(8px);
+      border-radius: 2.5rem;
+      padding: 2rem 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-left: 8px solid transparent;
+      border-image: linear-gradient(180deg, #a78bfa, #ec4899) 1;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5);
+      transition: 0.25s ease;
+      margin-top: 0.5rem;
+    }
+    .project-card:hover {
+      transform: scale(1.01);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .project-card h3 {
+      font-size: 2rem;
+      color: #ffffff;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin: 0.8rem 0 1.2rem;
+      color: #cbd5e1;
+      font-weight: 500;
+    }
+    .project-meta i {
+      color: #a78bfa;
+      margin-right: 0.5rem;
+      width: 1.4rem;
+    }
+
+    .project-card ul {
+      list-style: none;
+      color: #e2e8f0;
+    }
+    .project-card ul li {
+      padding: 0.3rem 0 0.3rem 2rem;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23a78bfa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>') left center no-repeat;
+      background-size: 1.3rem;
+      margin-bottom: 0.3rem;
+    }
+    .project-card ul li strong {
+      color: #f472b6;
+      font-weight: 700;
+    }
+
+    .evidence-badge {
+      margin-top: 1.5rem;
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.25), rgba(236, 72, 153, 0.25));
+      padding: 0.6rem 2rem;
+      border-radius: 60px;
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      transition: 0.2s;
+    }
+    .evidence-badge a {
+      color: #c084fc;
+      font-weight: 700;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.05rem;
+    }
+    .evidence-badge a i {
+      color: #ffffff;
+    }
+    .evidence-badge:hover {
+      background: linear-gradient(135deg, rgba(124, 58, 237, 0.4), rgba(236, 72, 153, 0.4));
+      transform: scale(1.02);
+    }
+
+    .project-caption {
+      margin-top: 1.2rem;
+      color: #94a3b8;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.95rem;
+    }
+    .project-caption i {
+      color: #f472b6;
+    }
+
+    /* ----- CONTACT (Youthful, Big Icons) ----- */
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2.5rem;
+      margin-top: 0.5rem;
+    }
+    .contact-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #e2e8f0;
+      text-decoration: none;
+      padding: 0.5rem 1.8rem;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 80px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+    .contact-links a i {
+      font-size: 1.8rem;
+      color: #a78bfa;
+      transition: 0.2s;
+    }
+    .contact-links a:hover {
+      background: rgba(124, 58, 237, 0.15);
+      border-color: #8b5cf6;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px -8px rgba(124, 58, 237, 0.3);
+    }
+    .contact-links a:hover i {
+      color: #f472b6;
+    }
+
+    /* ----- PRINT FRIENDLY (for PDF export) ----- */
+    @media print {
+      body {
+        background: #0c0a1a;
+        padding: 0.2in;
+      }
+      .blob-1,
+      .blob-2 {
+        display: none;
+      }
+      .portfolio {
+        background: #0f0b1f;
+        backdrop-filter: none;
+        box-shadow: none;
+        border: 1px solid #2a1e44;
+        padding: 0.4in;
+      }
+      .project-card {
+        background: #14102a;
+        border-left: 8px solid #7c3aed;
+      }
+      .pill {
+        background: #1f183a;
+        border-color: #2d2250;
+      }
+      .contact-links a {
+        background: #1f183a;
+        border-color: #2d2250;
+      }
+      .evidence-badge {
+        background: #1f183a;
+      }
+      h1 {
+        -webkit-text-fill-color: #c084fc;
+        color: #c084fc;
+      }
+      .hero-tagline span {
+        -webkit-text-fill-color: #f472b6;
+        color: #f472b6;
+      }
+    }
+
+    /* small tweaks for mobile */
+    @media (max-width: 550px) {
+      h1 {
+        font-size: 2.6rem;
+      }
+      .project-card {
+        padding: 1.5rem;
+      }
+      .avatar-box {
+        width: 100px;
+        height: 100px;
+        font-size: 3rem;
+      }
+      .hero {
+        justify-content: center;
+        text-align: center;
+      }
+      .hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .hero-tagline {
+        font-size: 1.2rem;
+      }
+      .contact-links a {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- floating blobs -->
+  <div class="blob-1"></div>
+  <div class="blob-2"></div>
+
+  <!-- ===== PORTFOLIO ===== -->
+  <div class="portfolio">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-content">
+        <h1>Yusuf Mostafa</h1>
+        <div class="status-badge">
+          <i class="fas fa-circle"></i> Open to AI/ML opportunities
+        </div>
+        <div class="hero-tagline">
+          <span>Machine Learning Engineer</span> · End-to-End AI &amp; Vision
+        </div>
+        <div class="hero-desc">
+          Building predictive pipelines, computer vision models, and interactive AI web apps that deliver real‑time insights.
+        </div>
+      </div>
+      <div class="avatar-box">
+        <i class="fas fa-rocket"></i>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="section">
+      <h2><i class="fas fa-user-astronaut"></i> About</h2>
+      <p style="font-size:1.15rem; color:#e2e8f0; max-width:750px; font-weight:400; line-height:1.8;">
+        Machine Learning Engineer specializing in building <strong style="color:#c084fc;">end-to-end predictive pipelines</strong>, 
+        <strong style="color:#f472b6;">computer vision models</strong>, and interactive AI web applications that 
+        deliver real-time insights.
+      </p>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section">
+      <h2><i class="fas fa-bolt"></i> Core Skills</h2>
+      <div class="skill-grid">
+        <span class="pill"><i class="fab fa-python"></i> Python</span>
+        <span class="pill"><i class="fas fa-brain"></i> TensorFlow / Keras</span>
+        <span class="pill"><i class="fas fa-chart-line"></i> Scikit-learn</span>
+        <span class="pill"><i class="fas fa-eye"></i> OpenCV</span>
+        <span class="pill"><i class="fas fa-calculator"></i> NumPy / Pandas</span>
+        <span class="pill"><i class="fas fa-cloud-upload-alt"></i> Streamlit</span>
+        <span class="pill"><i class="fas fa-share-alt"></i> Hugging Face Hub</span>
+        <span class="pill"><i class="fab fa-git-alt"></i> Git / GitHub</span>
+        <span class="pill"><i class="fas fa-plug"></i> REST APIs</span>
+      </div>
+    </div>
+
+    <!-- FEATURED PROJECT -->
+    <div class="section">
+      <h2><i class="fas fa-microscope"></i> Featured Project</h2>
+      <div class="project-card">
+        <h3>🧠 Brain Tumor Classification Web App</h3>
+        <div class="project-meta">
+          <span><i class="fas fa-bullseye"></i> Goal: Real‑time classifier</span>
+          <span><i class="fas fa-user-cog"></i> Role: Automated image pipeline</span>
+          <span><i class="fas fa-bolt"></i> Result: Sub‑second inference</span>
+        </div>
+        <ul>
+          <li><strong>Method:</strong> Trained deep CNN (TensorFlow/Keras) + OpenCV preprocessing, deployed with Streamlit.</li>
+          <li><strong>Impact:</strong> High classification accuracy with a fully interactive live demo.</li>
+        </ul>
+        <div class="evidence-badge">
+          <a href="https://github.com/YusufAbozhw/Brain_Tumor_Detector" target="_blank">
+            <i class="fab fa-github"></i> View on GitHub
+          </a>
+        </div>
+        <div class="project-caption">
+          <i class="fas fa-camera"></i> Live Streamlit app performing real‑time multi‑class inference.
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="section">
+      <h2><i class="fas fa-paper-plane"></i> Connect</h2>
+      <div class="contact-links">
+        <a href="https://github.com/YusufAbozhw" target="_blank">
+          <i class="fab fa-github"></i> YusufAbozhw
+        </a>
+        <a href="https://www.linkedin.com/in/yusuf-mostafa-abdelfattah" target="_blank">
+          <i class="fab fa-linkedin-in"></i> Yusuf Mostafa
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <!-- end portfolio -->
+</body>
+</html>
